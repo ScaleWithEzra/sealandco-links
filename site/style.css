@@ -1,6 +1,6 @@
 @font-face{font-family:Fraunces;src:url('./assets/fonts/Fraunces-Variable.ttf') format('truetype');font-weight:100 900;font-display:swap}
 @font-face{font-family:Manrope;src:url('./assets/fonts/Manrope-Latin-Variable.woff2') format('woff2');font-weight:200 800;font-display:swap}
-:root{--plum:#482038;--cream:#fff0dc;--secondary:#eed8d7;--radius:16px;--press-time:120ms;--heading:Fraunces,Georgia,serif;--body:Manrope,sans-serif;--raised:-4px -4px 10px #d68c9c29,7px 9px 16px #210b19a6,inset 1px 1px 2px #ffd3d138,inset -1px -2px 3px #260e2059;--sunken:inset 4px 5px 9px #210b19a6,inset -3px -3px 8px #d68c9c38,0 1px 1px #fbc7cd24}
+:root{--plum:#482038;--cream:#fff0dc;--secondary:#eed8d7;--radius:16px;--space-1:8px;--space-2:16px;--space-3:24px;--press-time:120ms;--heading:Fraunces,Georgia,serif;--body:Manrope,sans-serif;--raised:-4px -4px 10px #d68c9c29,7px 9px 16px #210b19a6,inset 1px 1px 2px #ffd3d138,inset -1px -2px 3px #260e2059;--sunken:inset 4px 5px 9px #210b19a6,inset -3px -3px 8px #d68c9c38,0 1px 1px #fbc7cd24}
 *{box-sizing:border-box}
 html{background:#321525;color:var(--cream);font-family:var(--body);-webkit-font-smoothing:antialiased}
 body{margin:0;min-width:280px;min-height:100svh;background:radial-gradient(ellipse at 30% 15%,#643449,#321525 75%)}
@@ -10,25 +10,25 @@ a{-webkit-tap-highlight-color:transparent}
 .page:after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 42%,#48203800 54%,#48203838 70%,#482038 96%);pointer-events:none}
 .hero{position:relative;height:396px}
 .content{position:relative;padding:0 24px max(128px,calc(env(safe-area-inset-bottom) + 112px))}
-.profile{margin:0 0 24px}
+.profile{margin:0 0 var(--space-3)}
 h1{font:550 48px/1.05 var(--heading);font-variation-settings:"opsz" 72,"SOFT" 65,"WONK" 1;letter-spacing:-.035em;margin:0;text-shadow:0 2px 4px #260d2340}
 .surname{letter-spacing:-.015em;font-kerning:normal}
-.role{font:500 14px/1.4 var(--body);color:var(--secondary);margin:4px 0 0}
-.links{display:grid;gap:12px}
+.role{font:500 14px/1.4 var(--body);color:var(--secondary);margin:var(--space-1) 0 0}
+.links{display:grid;gap:var(--space-2)}
 .pillow{position:relative;isolation:isolate;color:var(--cream);text-decoration:none;border:0;background:linear-gradient(140deg,#68384f,#5e2f46 62%,#58283f);box-shadow:var(--raised);transition:transform var(--press-time) cubic-bezier(.2,.75,.35,1),box-shadow var(--press-time) ease,background var(--press-time) ease;transform:translateY(0);overflow:hidden;touch-action:manipulation}
 .pillow:before{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;background:url('./assets/pile.png') center/192px 192px;opacity:.24;mix-blend-mode:soft-light;pointer-events:none}
 .row{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:80px;padding:16px 20px;border-radius:var(--radius)}
 .label{display:block;font:700 18px/1.25 var(--body);letter-spacing:-.035em}
 .sub{display:block;font:500 13px/1.5 var(--body);color:var(--secondary);margin-top:4px}
 .row svg{width:20px;height:20px;flex:none;opacity:.9}
-.icons{display:flex;gap:16px;margin-top:24px}
+.icons{display:flex;gap:var(--space-2);margin-top:var(--space-3)}
 .icon{display:grid;place-items:center;min-width:48px;height:56px;flex:1;border-radius:14px}
 .icon svg{width:21px;height:21px}
 .pillow.pressed,.pillow:active{transform:translateY(3px) scale(.992);background:linear-gradient(140deg,#512439,#69364c);box-shadow:var(--sunken)}
 .pillow:focus-visible{outline:2px solid var(--cream);outline-offset:5px}
 @media(hover:hover){.pillow:hover{transform:translateY(-1px);box-shadow:-3px -3px 10px #d68c9c38,7px 10px 17px #210b19a6,inset 1px 1px 2px #ffd3d159,inset -1px -2px 3px #260e204d}.pillow.pressed:hover,.pillow:active:hover{transform:translateY(3px) scale(.992);box-shadow:var(--sunken)}}
 @media(min-width:440px){.hero{height:452px}.content{padding-left:32px;padding-right:32px}}
-@media(max-width:370px){.hero{height:340px}.content{padding-left:20px;padding-right:20px}h1{font-size:44px}.profile{margin-bottom:24px}.row{padding:16px}.icons{gap:12px}}
+@media(max-width:370px){.hero{height:340px}.content{padding-left:20px;padding-right:20px}h1{font-size:44px}.row{padding:16px}.icons{gap:12px}}
 @media(prefers-reduced-motion:reduce){.pillow{transition:none}.pillow:active,.pillow.pressed{transform:translateY(2px)}}
 
 .flower-overlay{position:absolute;inset:0 0 auto;width:100%;height:auto;z-index:-2;pointer-events:none;clip-path:inset(0 0 49.75% 0)}

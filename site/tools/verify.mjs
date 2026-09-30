@@ -91,7 +91,7 @@ async function sourceChecks() {
     assert(css.includes('scene.jpg'), 'CSS does not use scene.jpg');
     return { assets: [...refs], sceneBytes: scene.length };
   });
-  await check('120ms press, reduced motion, and no runtime fetch', async () => {
+  await check('120ms release, reduced motion, and no runtime fetch', async () => {
     assert(/120ms|\.12s/.test(css) && /\.pressed|:active/.test(css), 'Press styles missing');
     assert(/prefers-reduced-motion/.test(css), 'Reduced-motion style missing');
     const scripts = [...html.matchAll(/<script\b([^>]*)>/gi)].map(([, raw]) => attrs(raw).src).filter(Boolean);
@@ -339,7 +339,28 @@ async function browserChecks(browser, url) {
       });
     }
   } finally { await main.context.close(); }
-  await check('Click follows exact URL after 120ms press', () => navigate(browser, url, 'click'));
+  await check('Released card springs back before navigation', async () => {
+    const session = await openPage(browser, 'release animation', url, {}, async context => {
+      await context.route('https://**/*', route => route.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><title>QA destination</title>' }));
+    });
+    try {
+      const { page } = session;
+      const anchor = page.locator('a.row').first(), box = await anchor.boundingBox();
+      const x = box.x + box.width / 2, y = box.y + box.height / 2;
+      await page.mouse.move(x, y);
+      await page.waitForTimeout(180);
+      await page.mouse.down();
+      await page.waitForTimeout(100);
+      assert(await anchor.evaluate(a => a.classList.contains('pressed')), 'Card did not press in');
+      await page.mouse.up();
+      const released = await anchor.evaluate(a => ({ pressed: a.classList.contains('pressed'), timing: getComputedStyle(a).transitionTimingFunction }));
+      assert(!released.pressed, 'Card stays depressed after release: ' + JSON.stringify(released));
+      assert(released.timing.includes('1.4'), 'Release does not use spring timing: ' + released.timing);
+      await page.waitForURL(value => value.href === new URL(expected[0].href).href);
+      return { releasedBeforeNavigation: true, springTiming: released.timing };
+    } finally { await session.context.close(); }
+  });
+  await check('Click follows exact URL after 120ms release', () => navigate(browser, url, 'click'));
   await check('Keyboard Enter follows exact URL', () => navigate(browser, url, 'keyboard'));
   await check('No-JavaScript links and scene work', async () => {
     const session = await openPage(browser, 'no JavaScript', url, { javaScriptEnabled: false });

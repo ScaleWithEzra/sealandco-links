@@ -15,7 +15,7 @@ h1{font:550 48px/1.05 var(--heading);font-variation-settings:"opsz" 72,"SOFT" 65
 .surname{letter-spacing:-.015em;font-kerning:normal}
 .role{font:500 14px/1.4 var(--body);color:var(--secondary);margin:var(--space-1) 0 0}
 .links{display:grid;gap:var(--space-2)}
-.pillow{position:relative;isolation:isolate;color:var(--cream);text-decoration:none;border:0;background:linear-gradient(140deg,#68384f,#5e2f46 62%,#58283f);box-shadow:var(--raised);transition:transform var(--press-time) cubic-bezier(.2,.75,.35,1),box-shadow var(--press-time) ease,background var(--press-time) ease;transform:translateY(0);overflow:hidden;touch-action:manipulation}
+.pillow{position:relative;isolation:isolate;color:var(--cream);text-decoration:none;border:0;background:linear-gradient(140deg,#68384f,#5e2f46 62%,#58283f);box-shadow:var(--raised);transition:transform var(--press-time) cubic-bezier(.22,1.4,.38,1),box-shadow var(--press-time) ease,background var(--press-time) ease;transform:translateY(0);overflow:hidden;touch-action:manipulation}
 .pillow:before{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;background:url('./assets/pile.png') center/192px 192px;opacity:.24;mix-blend-mode:soft-light;pointer-events:none}
 .row{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:80px;padding:16px 20px;border-radius:var(--radius)}
 .label{display:block;font:700 18px/1.25 var(--body);letter-spacing:-.035em}
@@ -24,7 +24,7 @@ h1{font:550 48px/1.05 var(--heading);font-variation-settings:"opsz" 72,"SOFT" 65
 .icons{display:flex;gap:var(--space-2);margin-top:var(--space-3)}
 .icon{display:grid;place-items:center;min-width:48px;height:56px;flex:1;border-radius:14px}
 .icon svg{width:21px;height:21px}
-.pillow.pressed,.pillow:active{transform:translateY(3px) scale(.992);background:linear-gradient(140deg,#512439,#69364c);box-shadow:var(--sunken)}
+.pillow.pressed,.pillow:active{transition-duration:70ms;transform:translateY(3px) scale(.992);background:linear-gradient(140deg,#512439,#69364c);box-shadow:var(--sunken)}
 .pillow:focus-visible{outline:2px solid var(--cream);outline-offset:5px}
 @media(hover:hover){.pillow:hover{transform:translateY(-1px);box-shadow:-3px -3px 10px #d68c9c38,7px 10px 17px #210b19a6,inset 1px 1px 2px #ffd3d159,inset -1px -2px 3px #260e204d}.pillow.pressed:hover,.pillow:active:hover{transform:translateY(3px) scale(.992);box-shadow:var(--sunken)}}
 @media(min-width:440px){.hero{height:452px}.content{padding-left:32px;padding-right:32px}}

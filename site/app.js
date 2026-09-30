@@ -3,19 +3,19 @@ const page = document.getElementById('page');
 function enhancePress(anchor) {
   let timer = 0;
   let origin = null, cancelled = false;
-  const clear = () => { clearTimeout(timer); anchor.classList.remove('pressed'); };
+  const release = () => anchor.classList.remove('pressed');
   anchor.addEventListener('pointerdown', e => { if (e.button === 0) { origin = [e.clientX, e.clientY]; cancelled = false; anchor.classList.add('pressed'); } });
-  anchor.addEventListener('pointermove', e => { if (origin && Math.hypot(e.clientX - origin[0], e.clientY - origin[1]) > 12) { cancelled = true; clear(); } });
-  anchor.addEventListener('pointercancel', () => { origin = null; cancelled = true; clear(); });
-  anchor.addEventListener('pointerleave', e => { if (e.buttons) { cancelled = true; clear(); } });
-  anchor.addEventListener('pointerup', () => { origin = null; timer = setTimeout(clear, 200); });
-  anchor.addEventListener('blur', clear);
+  anchor.addEventListener('pointermove', e => { if (origin && Math.hypot(e.clientX - origin[0], e.clientY - origin[1]) > 12) { cancelled = true; release(); } });
+  anchor.addEventListener('pointercancel', () => { origin = null; cancelled = true; release(); });
+  anchor.addEventListener('pointerleave', e => { if (e.buttons) { cancelled = true; release(); } });
+  anchor.addEventListener('pointerup', () => { origin = null; release(); });
+  anchor.addEventListener('blur', release);
   anchor.addEventListener('click', e => {
-    if (cancelled && e.detail > 0) { e.preventDefault(); clear(); return; }
-    if (e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || anchor.target === '_blank') return;
-    e.preventDefault(); clearTimeout(timer); anchor.classList.add('pressed');
-    // Finish the tactile press before leaving. A native anchor still supplies
-    // copy-link, modifier clicks, keyboard activation and the plain HTML fallback.
+    if (cancelled && e.detail > 0) { e.preventDefault(); release(); return; }
+    if (!e.detail || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || anchor.target === '_blank') return;
+    e.preventDefault(); clearTimeout(timer); release();
+    // Let the card spring back before leaving. The anchor still handles
+    // keyboard, copy-link, modifier clicks, and the plain HTML fallback.
     timer = setTimeout(() => { location.assign(anchor.href); }, 120);
   });
 }

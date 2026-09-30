@@ -9,7 +9,7 @@ a{-webkit-tap-highlight-color:transparent}
 .page:before{content:'';position:absolute;inset:0 0 auto;aspect-ratio:941/1672;z-index:-2;background:url('./assets/scene.jpg') center top/100% auto no-repeat;mask-image:linear-gradient(#000 65%,transparent 100%);pointer-events:none}
 .page:after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 42%,#48203800 54%,#48203838 70%,#482038 96%);pointer-events:none}
 .hero{position:relative;height:396px}
-.content{position:relative;padding:0 24px max(32px,calc(env(safe-area-inset-bottom) + 16px))}
+.content{position:relative;padding:0 24px max(128px,calc(env(safe-area-inset-bottom) + 112px))}
 .profile{margin:0 0 24px}
 h1{font:550 48px/1.05 var(--heading);font-variation-settings:"opsz" 72,"SOFT" 65,"WONK" 1;letter-spacing:-.035em;margin:0;text-shadow:0 2px 4px #260d2340}
 .surname{letter-spacing:-.015em;font-kerning:normal}

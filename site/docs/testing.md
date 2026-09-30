@@ -15,3 +15,4 @@ npm run verify:mobile
 Playwright uses its managed Chromium by default. To use an installed Chromium or Chrome binary, set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` to that binary's path when running `npm run verify`. `npm run verify:mobile` checks that all six links fit without scrolling at 402×667 (Instagram-sized), 402×874 (with a simulated 100px Safari toolbar), 320×568, and 375×600. It saves viewport captures in `shots/`. Below 520px tall, the layout allows scrolling rather than clipping links. The browser check also loads `index.html` directly through `file://` and tests the no-JavaScript page.
 
 Use `npm run build` after changing `links.json`. Use `npm run build:public` to assemble the deployment allowlist in `public/`.
+If the name, subtitle, URL, or flower cutout changes, run `npm run build:brand` before `npm run build:public` to refresh the favicon, home-screen icons, and social image.

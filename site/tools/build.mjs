@@ -29,12 +29,20 @@ const html = `<!doctype html>
 <meta property="og:title" content="${escape(config.name)}">
 <meta property="og:description" content="${escape(config.role)}">
 <meta property="og:url" content="${escape(config.plannedUrl)}/">
-<meta property="og:image" content="${escape(config.plannedUrl)}/assets/scene.jpg">
+<meta property="og:image" content="${escape(config.plannedUrl)}/assets/share-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:alt" content="A pink velour flower beside ${escape(config.name)}">
 <link rel="canonical" href="${escape(config.plannedUrl)}/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${escape(config.name)}">
 <meta name="twitter:description" content="${escape(config.role)}">
-<link rel="icon" href="assets/flower.svg" type="image/svg+xml">
+<meta name="twitter:image" content="${escape(config.plannedUrl)}/assets/share-card.png">
+<meta name="twitter:image:alt" content="A pink velour flower beside ${escape(config.name)}">
+<link rel="icon" href="assets/flower-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="stylesheet" href="assets/iphone-17-pro.css" media="(min-width:700px)">
 <link rel="stylesheet" href="style.css">
 </head><body>

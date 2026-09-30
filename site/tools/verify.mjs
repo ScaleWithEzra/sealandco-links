@@ -72,12 +72,33 @@ async function sourceChecks() {
     assert(!/class=["'][^"']*\bpicture\b|class=["'][^"']*\bavatar\b/i.test(html), 'Avatar placeholder found');
     return { name: config.name, role: config.role, canvasCount: 0 };
   });
+  await check('Flower icons and social image match the published metadata', async () => {
+    const metas = [...html.matchAll(/<meta\b([^>]*)>/gi)].map(([, raw]) => attrs(raw));
+    const value = key => metas.find(meta => meta.name === key || meta.property === key)?.content;
+    const image = `${config.plannedUrl}/assets/share-card.png`;
+    assert(value('og:image') === image && value('twitter:image') === image, 'Social previews do not use the share card');
+    assert(value('twitter:card') === 'summary_large_image', 'Large social card missing');
+    assert(value('og:image:width') === '1200' && value('og:image:height') === '630', 'Social image dimensions missing');
+    assert(value('og:image:alt') && value('twitter:image:alt'), 'Social image description missing');
+    const dimensions = async (file, width, height) => {
+      const png = await readFile(resolve(root, 'assets', file));
+      assert(png.subarray(0, 8).equals(Buffer.from([137,80,78,71,13,10,26,10])), `${file} is not PNG`);
+      assert(png.readUInt32BE(16) === width && png.readUInt32BE(20) === height, `${file} has the wrong dimensions`);
+    };
+    await dimensions('share-card.png', 1200, 630);
+    for (const [file, size] of [['flower-32.png',32],['apple-touch-icon.png',180],['flower-192.png',192],['flower-512.png',512]]) await dimensions(file, size, size);
+    assert(/rel="icon" href="assets\/flower-32\.png"/.test(html), 'Browser favicon missing');
+    assert(/rel="apple-touch-icon" href="assets\/apple-touch-icon\.png"/.test(html), 'Apple touch icon missing');
+    const manifest = JSON.parse(await readFile(resolve(root, 'manifest.webmanifest'), 'utf8'));
+    assert(manifest.icons.length === 2 && manifest.icons.every(icon => icon.src.startsWith('assets/flower-')), 'Manifest icons missing');
+    return { image, iconSizes: [32, 180, 192, 512] };
+  });
   await check('Scene, fonts, styles and scripts are local', async () => {
     const refs = new Set(['assets/scene.jpg']);
     for (const [, tag, raw] of html.matchAll(/<(script|link|img)\b([^>]*)>/gi)) {
       const at = attrs(raw);
       if (at.src) refs.add(at.src);
-      if (tag.toLowerCase() === 'link' && /^(?:stylesheet|icon|preload)$/i.test(at.rel || '') && at.href) refs.add(at.href);
+      if (tag.toLowerCase() === 'link' && /^(?:stylesheet|icon|apple-touch-icon|manifest|preload)$/i.test(at.rel || '') && at.href) refs.add(at.href);
     }
     for (const [, path] of css.matchAll(/url\(\s*["']?([^)'"]+)["']?\s*\)/gi)) refs.add(path);
     for (const ref of refs) {

@@ -4,7 +4,7 @@ I wanted a links page that felt like mine, so I made one and kept playing with i
 
 The content lives in one file, which makes it easy to try a different version. If it gives you an idea for your own page, I’d love to see it.
 
-[Visit the page](https://links.sealandco.studio)
+[Visit the page](https://sealandco-links.vercel.app)
 
 ![Links preview](docs/preview.png)
 

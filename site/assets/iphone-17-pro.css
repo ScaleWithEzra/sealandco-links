@@ -1,0 +1,97 @@
+/* iPhone 17 Pro mockup frame.
+   Screen is 402x874 pt (1206x2622 px @3x). Capture app screens at that viewport with a 62 pt top
+   safe area so nothing sits under the Dynamic Island. Set --w to the on-page screen width.
+
+   <link rel="stylesheet" href="assets/iphone-17-pro.css">
+   <div class="ip17" style="--w:400px">
+     <i class="ip17-btn ip17-action"></i><i class="ip17-btn ip17-vol-up"></i><i class="ip17-btn ip17-vol-down"></i>
+     <i class="ip17-btn ip17-power"></i><i class="ip17-btn ip17-camera"></i>
+     <div class="ip17-bezel"><div class="ip17-screen">
+       <img src="screen.png" alt="">
+       <div class="ip17-status">
+         <span class="ip17-time">9:41</span>
+         <span class="ip17-icons">
+           <svg viewBox="0 0 18 12" width="18" height="12"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5.5" width="3" height="6.5" rx=".8"/><rect x="10" y="3" width="3" height="9" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8"/></svg>
+           <svg viewBox="0 3.4 16 8.4" width="16" height="8.4"><path d="M.08 3.68A11.2 11.2 0 0 1 15.92 3.68L13.66 5.94A8 8 0 0 0 2.34 5.94Z"/><path d="M3.4 7A6.5 6.5 0 0 1 12.6 7L10.4 9.2A3.4 3.4 0 0 0 5.6 9.2Z"/><path d="M8 11.6 6.73 10.33A1.8 1.8 0 0 1 9.27 10.33Z"/></svg>
+           <svg viewBox="0 0 27 13" width="27" height="13"><rect x=".5" y=".5" width="23" height="12" rx="3.8" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="2" y="2" width="18" height="9" rx="2.3"/><path d="M25 4.4c.9.3 1.5 1.1 1.5 2.1s-.6 1.8-1.5 2.1z" fill-opacity=".45"/></svg>
+         </span>
+       </div>
+       <i class="ip17-island"></i><i class="ip17-home"></i>
+     </div></div>
+   </div>
+   Add class "ip17-dark-text" on .ip17 for light app screens (black status bar and home indicator). */
+
+.ip17 {
+  --w: 400px;
+  --u: calc(var(--w) / 402);
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  padding: calc(var(--u) * 4.5);
+  border-radius: calc(var(--u) * 72.5);
+  background: linear-gradient(140deg, #eef0f2 0%, #aeb3ba 18%, #dfe2e5 42%, #9aa0a8 68%, #e6e8eb 100%);
+  box-shadow:
+    inset 0 0 0 calc(var(--u) * .7) rgba(255, 255, 255, .55),
+    0 0 0 calc(var(--u) * .6) rgba(0, 0, 0, .18),
+    0 calc(var(--u) * 38) calc(var(--u) * 70) calc(var(--u) * -26) rgba(0, 0, 0, .5);
+  color: #fff;
+}
+.ip17.ip17-dark-text { color: #000; }
+
+.ip17-bezel {
+  padding: calc(var(--u) * 6);
+  border-radius: calc(var(--u) * 68);
+  background: #050506;
+  box-shadow: inset 0 0 0 calc(var(--u) * 1) #1d1f23;
+}
+
+.ip17-screen {
+  position: relative;
+  width: var(--w);
+  height: calc(var(--u) * 874);
+  border-radius: calc(var(--u) * 62);
+  overflow: hidden;
+  background: #000;
+}
+.ip17-screen > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+
+.ip17-status {
+  position: absolute; inset: 0 0 auto 0; height: calc(var(--u) * 54);
+  font: 600 calc(var(--u) * 17)/1 -apple-system, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: -0.01em; pointer-events: none;
+}
+.ip17-time {
+  position: absolute; left: 0; width: calc(var(--u) * 138); top: calc(var(--u) * 20.5);
+  text-align: center; line-height: calc(var(--u) * 17);
+}
+.ip17-icons {
+  position: absolute; right: 0; width: calc(var(--u) * 138); top: calc(var(--u) * 22.5);
+  height: calc(var(--u) * 13); display: flex; align-items: center; justify-content: center;
+  gap: calc(var(--u) * 5.5);
+}
+.ip17-icons svg { fill: currentColor; height: auto; }
+.ip17-icons svg:nth-child(1) { width: calc(var(--u) * 17.5); }
+.ip17-icons svg:nth-child(2) { width: calc(var(--u) * 15.5); }
+.ip17-icons svg:nth-child(3) { width: calc(var(--u) * 26.5); }
+
+.ip17-island {
+  position: absolute; top: calc(var(--u) * 11); left: 50%; transform: translateX(-50%);
+  width: calc(var(--u) * 125); height: calc(var(--u) * 37); border-radius: calc(var(--u) * 19);
+  background: radial-gradient(circle at 81% 50%, #1c2230 0, #0b0d12 calc(var(--u) * 5), #000 calc(var(--u) * 7.5));
+}
+
+.ip17-home {
+  position: absolute; bottom: calc(var(--u) * 8); left: 50%; transform: translateX(-50%);
+  width: calc(var(--u) * 139); height: calc(var(--u) * 5); border-radius: calc(var(--u) * 3);
+  background: currentColor; opacity: .8;
+}
+
+.ip17-btn {
+  position: absolute; width: calc(var(--u) * 3.2); border-radius: calc(var(--u) * 2);
+  background: linear-gradient(90deg, #8f959d, #e3e6e9 50%, #a3a8af);
+}
+.ip17-action   { left: calc(var(--u) * -2.4);  top: calc(var(--u) * 148); height: calc(var(--u) * 34); }
+.ip17-vol-up   { left: calc(var(--u) * -2.4);  top: calc(var(--u) * 212); height: calc(var(--u) * 62); }
+.ip17-vol-down { left: calc(var(--u) * -2.4);  top: calc(var(--u) * 290); height: calc(var(--u) * 62); }
+.ip17-power    { right: calc(var(--u) * -2.4); top: calc(var(--u) * 238); height: calc(var(--u) * 98); }
+.ip17-camera   { right: calc(var(--u) * -1.6); top: calc(var(--u) * 520); height: calc(var(--u) * 58); width: calc(var(--u) * 2.4); }

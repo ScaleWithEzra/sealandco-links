@@ -1,0 +1,33 @@
+# Local art studies, working notes and private source material
+/HANDOFF.md
+/codex/
+/concepts/
+/mockup/
+/profile/
+/refs/
+/site/review/
+/site/shots/
+/site/NOTES.md
+/site/BUILD-PLAN.md
+/site/type-study.*
+/site/tools/build-type-study.mjs
+/site/tools/verify-type-study.mjs
+/site/tools/check-shaders.*
+/site/demo-shaders.js
+/site/floor.js
+/site/flowers.js
+/site/gl.js
+/site/assets/SCENE-PROMPT.md
+/site/assets/scene.png
+/site/assets/fonts/*
+!/site/assets/fonts/Fraunces-Variable.ttf
+!/site/assets/fonts/Fraunces-OFL.txt
+!/site/assets/fonts/Manrope-Latin-Variable.woff2
+!/site/assets/fonts/Manrope-OFL.txt
+# Generated output and local tooling
+/site/public/
+node_modules/
+.vercel/
+.env
+.env.*
+.DS_Store

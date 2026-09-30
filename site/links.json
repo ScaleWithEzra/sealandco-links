@@ -1,0 +1,40 @@
+{
+  "name": "Ezra Seal",
+  "role": "Product designer",
+  "rows": [
+    {
+      "title": "Seal & Co.",
+      "sub": "Stuff & things",
+      "href": "https://www.sealandco.studio"
+    },
+    {
+      "title": "Velour",
+      "sub": "Go on, give it a brush",
+      "href": "https://velour.sealandco.studio"
+    },
+    {
+      "title": "Work with me",
+      "sub": "Book an app design call",
+      "href": "https://contra.com/s/NLl6Lemk-app-design-call"
+    }
+  ],
+  "icons": [
+    {
+      "name": "X",
+      "href": ""
+    },
+    {
+      "name": "Instagram",
+      "href": "https://www.instagram.com/literally.ez"
+    },
+    {
+      "name": "Threads",
+      "href": "https://www.threads.net/@literally.ez"
+    },
+    {
+      "name": "GitHub",
+      "href": "https://github.com/ScaleWithEzra"
+    }
+  ],
+  "plannedUrl": "https://links.sealandco.studio"
+}

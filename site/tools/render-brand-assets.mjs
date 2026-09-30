@@ -19,6 +19,7 @@ try {
     document.querySelector('.url').textContent = new URL(url).host;
   }, { name: config.name, role: config.role, url: config.plannedUrl });
   await page.locator('.share-card').screenshot({ path: path.join(root, 'assets/share-card.png') });
+  await page.locator('.mockup-board').screenshot({ path: path.join(root, 'shots/share-mockups.png') });
   for (const [size, name] of [[32, 'flower-32.png'], [180, 'apple-touch-icon.png'], [192, 'flower-192.png'], [512, 'flower-512.png']]) {
     await page.locator('.app-icon').evaluate((icon, size) => {
       icon.style.width = `${size}px`;
@@ -27,7 +28,7 @@ try {
     }, size);
     await page.locator('.app-icon').screenshot({ path: path.join(root, `assets/${name}`), omitBackground: true });
   }
-  console.log('Rendered share card and flower icons at 32, 180, 192 and 512px.');
+  console.log('Rendered share card, close-up phone mockups, and flower icons at 32, 180, 192 and 512px.');
 } finally {
   await browser.close();
 }

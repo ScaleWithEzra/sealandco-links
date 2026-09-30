@@ -47,13 +47,13 @@ const html = `<!doctype html>
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/png">
-<meta property="og:image:alt" content="A pink velour flower beside ${escape(config.name)}">
+<meta property="og:image:alt" content="${escape(config.name)} with phone mockups of the links page and Velour editor, a flower, and Refract objects">
 <link rel="canonical" href="${escape(config.plannedUrl)}/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${escape(config.name)}">
 <meta name="twitter:description" content="${escape(config.role)}">
 <meta name="twitter:image" content="${escape(shareUrl)}">
-<meta name="twitter:image:alt" content="A pink velour flower beside ${escape(config.name)}">
+<meta name="twitter:image:alt" content="${escape(config.name)} with phone mockups of the links page and Velour editor, a flower, and Refract objects">
 <link rel="icon" href="assets/flower-32.png?v=${iconRev}" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=${touchRev}" sizes="180x180">
 <link rel="manifest" href="manifest.webmanifest?v=${icon192Rev}${icon512Rev}">

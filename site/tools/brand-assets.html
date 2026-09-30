@@ -1,19 +1,35 @@
 <!doctype html>
 <html lang="en">
 <meta charset="utf-8">
+<link rel="stylesheet" href="../assets/iphone-17-pro.css">
 <style>
   @font-face{font-family:Fraunces;src:url('../assets/fonts/Fraunces-Variable.ttf') format('truetype');font-weight:100 900}
   @font-face{font-family:Manrope;src:url('../assets/fonts/Manrope-Latin-Variable.woff2') format('woff2');font-weight:200 800}
   *{box-sizing:border-box}
   html,body{margin:0;background:transparent}
-  .share-card{position:relative;width:1200px;height:630px;overflow:hidden;color:#fff0dc;background:radial-gradient(ellipse at 84% 20%,#754058 0%,#5b2d45 39%,#351728 100%)}
-  .share-card:before{content:'';position:absolute;inset:0;background:url('../assets/pile.png') center/240px;mix-blend-mode:soft-light;opacity:.27}
-  .share-card:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#35172888 0%,transparent 58%);pointer-events:none}
-  .share-copy{position:absolute;z-index:2;left:80px;top:207px}
-  h1{font:550 96px/1.05 Fraunces,Georgia,serif;font-variation-settings:"opsz" 72,"SOFT" 65,"WONK" 1;letter-spacing:-.035em;margin:0;text-shadow:0 4px 12px #240b1e55}
-  .role{font:500 30px/1.3 Manrope,sans-serif;color:#eed8d7;margin:18px 0 0}
-  .url{position:absolute;z-index:2;left:84px;bottom:53px;font:600 20px/1.3 Manrope,sans-serif;color:#f3dcd9}
-  .share-flower{position:absolute;z-index:1;width:590px;height:590px;object-fit:contain;right:-4px;top:8px;filter:drop-shadow(0 25px 34px #1e0a18a8)}
+  .share-card{position:relative;width:1200px;height:630px;overflow:hidden;color:#fff0dc;background:radial-gradient(ellipse at 76% 20%,#74425b 0%,#53283f 45%,#321629 100%)}
+  .share-card:before{content:'';position:absolute;inset:0;background:url('../assets/pile.png') center/240px;mix-blend-mode:soft-light;opacity:.19}
+  .share-card:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#321629aa 0%,#32162918 48%,transparent 80%);pointer-events:none}
+  .share-copy{position:absolute;z-index:8;left:72px;top:197px}
+  h1{font:620 91px/1.06 Fraunces,Georgia,serif;font-variation-settings:"opsz" 72,"SOFT" 65,"WONK" 1;letter-spacing:-.03em;margin:0}
+  .role{font:650 29px/1.25 Manrope,sans-serif;color:#fff0dc;margin:18px 0 0}
+  .url{position:absolute;z-index:8;left:76px;bottom:50px;font:650 20px/1.3 Manrope,sans-serif;color:#f8e6d9}
+  .scene-object{position:absolute;display:block;object-fit:contain;pointer-events:none}
+  .stem{z-index:5;width:295px;height:295px;left:472px;top:304px;filter:drop-shadow(5px 12px 12px #210a1a66)}
+  .planet{z-index:2;width:198px;height:198px;left:545px;top:5px;transform:rotate(-14deg);filter:drop-shadow(8px 12px 10px #16071788)}
+  .vinyl{z-index:7;width:208px;height:208px;left:1048px;top:423px;transform:rotate(20deg);filter:drop-shadow(0 13px 15px #160717aa)}
+  .phone{position:absolute;transform-origin:center center;filter:drop-shadow(12px 15px 22px #19081975)}
+  .phone-links{z-index:6;--w:225px;left:670px;top:59px;transform:perspective(950px) rotateY(-9deg) rotateZ(-8deg)}
+  .phone-velour{z-index:4;--w:220px;left:907px;top:116px;transform:perspective(950px) rotateY(8deg) rotateZ(9deg)}
+  .phone-velour .ip17-screen,.mockup-velour .ip17-screen{background:#f5f3ef}
+  .phone-velour .ip17-screen>img,.mockup-velour .ip17-screen>img{transform:translateY(calc(var(--u) * 44))}
+  .mockup-board{position:relative;width:1200px;height:960px;overflow:hidden;color:#fff0dc;background:radial-gradient(ellipse at 50% 12%,#70425b,#321629 80%)}
+  .mockup-board:before{content:'';position:absolute;inset:0;background:url('../assets/pile.png') center/240px;mix-blend-mode:soft-light;opacity:.16}
+  .mockup-board .ip17{position:absolute;top:38px;filter:drop-shadow(16px 24px 25px #19081988)}
+  .mockup-board .mockup-links{--w:375px;left:144px}
+  .mockup-board .mockup-velour{--w:375px;left:681px}
+  .mockup-label{position:absolute;top:880px;font:600 29px/1.2 Manrope,sans-serif}
+  .mockup-label.links{left:258px}.mockup-label.velour{left:835px}
   .app-icon{position:relative;width:512px;height:512px;overflow:hidden;border-radius:20%;background:radial-gradient(circle at 34% 21%,#713c55,#482038 66%,#331626)}
   .app-icon:before{content:'';position:absolute;inset:0;background:url('../assets/pile.png') center/38%;mix-blend-mode:soft-light;opacity:.25}
   .app-icon img{display:block;position:absolute;inset:5%;width:90%;height:90%;object-fit:contain;filter:drop-shadow(0 5px 9px #1d091b77)}
@@ -21,7 +37,39 @@
 <div class="share-card">
   <div class="share-copy"><h1>Ezra Seal</h1><p class="role">Product design · 0→1</p></div>
   <div class="url">links.sealandco.studio</div>
-  <img class="share-flower" src="../assets/flower-cutout.png" alt="">
+  <img class="scene-object planet" src="../assets/share-source/refract-planet.png" alt="">
+  <img class="scene-object stem" src="../assets/share-source/pink-flower-stem.png" alt="">
+  <div class="ip17 ip17-dark-text phone phone-velour" aria-hidden="true">
+    <i class="ip17-btn ip17-action"></i><i class="ip17-btn ip17-vol-up"></i><i class="ip17-btn ip17-vol-down"></i><i class="ip17-btn ip17-power"></i><i class="ip17-btn ip17-camera"></i>
+    <div class="ip17-bezel"><div class="ip17-screen"><img src="../assets/share-source/velour-screen.png" alt=""><i class="ip17-island"></i><i class="ip17-home"></i></div></div>
+  </div>
+  <div class="ip17 phone phone-links" aria-hidden="true">
+    <i class="ip17-btn ip17-action"></i><i class="ip17-btn ip17-vol-up"></i><i class="ip17-btn ip17-vol-down"></i><i class="ip17-btn ip17-power"></i><i class="ip17-btn ip17-camera"></i>
+    <div class="ip17-bezel"><div class="ip17-screen"><img src="../assets/share-source/links-screen.png" alt=""><i class="ip17-island"></i><i class="ip17-home"></i></div></div>
+  </div>
+  <img class="scene-object vinyl" src="../assets/share-source/refract-vinyl.png" alt="">
 </div>
 <div class="app-icon"><img src="../assets/flower-cutout.png" alt=""></div>
+<div class="mockup-board" aria-label="Close-up of the actual links page and Velour screens in iPhone 17 Pro frames">
+  <div class="ip17 mockup-links" aria-hidden="true">
+    <i class="ip17-btn ip17-action"></i><i class="ip17-btn ip17-vol-up"></i><i class="ip17-btn ip17-vol-down"></i><i class="ip17-btn ip17-power"></i><i class="ip17-btn ip17-camera"></i>
+    <div class="ip17-bezel"><div class="ip17-screen"><img src="../assets/share-source/links-screen.png" alt=""><i class="ip17-island"></i><i class="ip17-home"></i></div></div>
+  </div>
+  <div class="ip17 ip17-dark-text mockup-velour" aria-hidden="true">
+    <i class="ip17-btn ip17-action"></i><i class="ip17-btn ip17-vol-up"></i><i class="ip17-btn ip17-vol-down"></i><i class="ip17-btn ip17-power"></i><i class="ip17-btn ip17-camera"></i>
+    <div class="ip17-bezel"><div class="ip17-screen"><img src="../assets/share-source/velour-screen.png" alt=""><i class="ip17-island"></i><i class="ip17-home"></i></div></div>
+  </div>
+  <span class="mockup-label links">Links page</span><span class="mockup-label velour">Velour</span>
+</div>
+<template id="phone-status">
+  <div class="ip17-status"><span class="ip17-time">9:41</span><span class="ip17-icons">
+    <svg viewBox="0 0 18 12" width="18" height="12" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5.5" width="3" height="6.5" rx=".8"/><rect x="10" y="3" width="3" height="9" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8"/></svg>
+    <svg viewBox="0 3.4 16 8.4" width="16" height="8.4" aria-hidden="true"><path d="M.08 3.68A11.2 11.2 0 0 1 15.92 3.68L13.66 5.94A8 8 0 0 0 2.34 5.94Z"/><path d="M3.4 7A6.5 6.5 0 0 1 12.6 7L10.4 9.2A3.4 3.4 0 0 0 5.6 9.2Z"/><path d="M8 11.6 6.73 10.33A1.8 1.8 0 0 1 9.27 10.33Z"/></svg>
+    <svg viewBox="0 0 27 13" width="27" height="13" aria-hidden="true"><rect x=".5" y=".5" width="23" height="12" rx="3.8" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="2" y="2" width="18" height="9" rx="2.3"/><path d="M25 4.4c.9.3 1.5 1.1 1.5 2.1s-.6 1.8-1.5 2.1z" fill-opacity=".45"/></svg>
+  </span></div>
+</template>
+<script>
+  const status = document.querySelector('#phone-status');
+  document.querySelectorAll('.ip17-screen').forEach(screen => screen.append(status.content.cloneNode(true)));
+</script>
 </html>

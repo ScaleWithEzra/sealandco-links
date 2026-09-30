@@ -1,8 +1,22 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const config = JSON.parse(await fs.readFile(path.join(root, 'links.json'), 'utf8'));
+const revision = async file => createHash('sha256').update(await fs.readFile(path.join(root, 'assets', file))).digest('hex').slice(0, 8);
+const [shareRev, iconRev, touchRev, icon192Rev, icon512Rev] = await Promise.all([
+  'share-card.png', 'flower-32.png', 'apple-touch-icon.png', 'flower-192.png', 'flower-512.png',
+].map(revision));
+const shareUrl = `${config.plannedUrl}/assets/share-card.png?v=${shareRev}`;
+await fs.writeFile(path.join(root, 'manifest.webmanifest'), JSON.stringify({
+  name: config.name, short_name: config.name, start_url: '/', display: 'browser',
+  background_color: '#482038', theme_color: '#482038',
+  icons: [
+    { src: `assets/flower-192.png?v=${icon192Rev}`, sizes: '192x192', type: 'image/png' },
+    { src: `assets/flower-512.png?v=${icon512Rev}`, sizes: '512x512', type: 'image/png' },
+  ],
+}, null, 2) + '\n');
 const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
 const nameParts = config.name.trim().split(/\s+/);
 const surname = nameParts.pop();
@@ -29,7 +43,7 @@ const html = `<!doctype html>
 <meta property="og:title" content="${escape(config.name)}">
 <meta property="og:description" content="${escape(config.role)}">
 <meta property="og:url" content="${escape(config.plannedUrl)}/">
-<meta property="og:image" content="${escape(config.plannedUrl)}/assets/share-card.png">
+<meta property="og:image" content="${escape(shareUrl)}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/png">
@@ -38,11 +52,11 @@ const html = `<!doctype html>
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${escape(config.name)}">
 <meta name="twitter:description" content="${escape(config.role)}">
-<meta name="twitter:image" content="${escape(config.plannedUrl)}/assets/share-card.png">
+<meta name="twitter:image" content="${escape(shareUrl)}">
 <meta name="twitter:image:alt" content="A pink velour flower beside ${escape(config.name)}">
-<link rel="icon" href="assets/flower-32.png" type="image/png" sizes="32x32">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180">
-<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/flower-32.png?v=${iconRev}" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=${touchRev}" sizes="180x180">
+<link rel="manifest" href="manifest.webmanifest?v=${icon192Rev}${icon512Rev}">
 <link rel="stylesheet" href="assets/iphone-17-pro.css" media="(min-width:700px)">
 <link rel="stylesheet" href="style.css">
 </head><body>

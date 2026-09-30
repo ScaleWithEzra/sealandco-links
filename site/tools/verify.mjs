@@ -1,5 +1,6 @@
 // Run from site/: npm test (source checks), npm run verify (Chrome and screenshots).
 import { createRequire } from 'node:module';
+import { createHash } from 'node:crypto';
 import { createServer } from 'node:http';
 import { readFile, writeFile, mkdir, stat } from 'node:fs/promises';
 import { dirname, extname, resolve, sep } from 'node:path';
@@ -75,7 +76,8 @@ async function sourceChecks() {
   await check('Flower icons and social image match the published metadata', async () => {
     const metas = [...html.matchAll(/<meta\b([^>]*)>/gi)].map(([, raw]) => attrs(raw));
     const value = key => metas.find(meta => meta.name === key || meta.property === key)?.content;
-    const image = `${config.plannedUrl}/assets/share-card.png`;
+    const imageRevision = createHash('sha256').update(await readFile(resolve(root, 'assets/share-card.png'))).digest('hex').slice(0, 8);
+    const image = `${config.plannedUrl}/assets/share-card.png?v=${imageRevision}`;
     assert(value('og:image') === image && value('twitter:image') === image, 'Social previews do not use the share card');
     assert(value('twitter:card') === 'summary_large_image', 'Large social card missing');
     assert(value('og:image:width') === '1200' && value('og:image:height') === '630', 'Social image dimensions missing');
@@ -87,8 +89,8 @@ async function sourceChecks() {
     };
     await dimensions('share-card.png', 1200, 630);
     for (const [file, size] of [['flower-32.png',32],['apple-touch-icon.png',180],['flower-192.png',192],['flower-512.png',512]]) await dimensions(file, size, size);
-    assert(/rel="icon" href="assets\/flower-32\.png"/.test(html), 'Browser favicon missing');
-    assert(/rel="apple-touch-icon" href="assets\/apple-touch-icon\.png"/.test(html), 'Apple touch icon missing');
+    assert(/rel="icon" href="assets\/flower-32\.png\?v=[a-f0-9]{8}"/.test(html), 'Versioned browser favicon missing');
+    assert(/rel="apple-touch-icon" href="assets\/apple-touch-icon\.png\?v=[a-f0-9]{8}"/.test(html), 'Versioned Apple touch icon missing');
     const manifest = JSON.parse(await readFile(resolve(root, 'manifest.webmanifest'), 'utf8'));
     assert(manifest.icons.length === 2 && manifest.icons.every(icon => icon.src.startsWith('assets/flower-')), 'Manifest icons missing');
     return { image, iconSizes: [32, 180, 192, 512] };
@@ -103,7 +105,7 @@ async function sourceChecks() {
     for (const [, path] of css.matchAll(/url\(\s*["']?([^)'"]+)["']?\s*\)/gi)) refs.add(path);
     for (const ref of refs) {
       assert(!/^(?:https?:)?\/\//i.test(ref), 'Remote asset: ' + ref);
-      const file = resolve(root, ref);
+      const file = resolve(root, ref.split('?')[0]);
       assert(file.startsWith(root + sep), 'Asset escapes site: ' + ref);
       assert((await stat(file)).isFile(), 'Missing asset: ' + ref);
     }
